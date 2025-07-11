@@ -23,10 +23,10 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int				n_ph;			//how many philos
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				max_meals;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	int				n_meals;
 	long			start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
@@ -36,11 +36,21 @@ typedef struct s_table
 }	t_table;
 
 /* **************************************** */
+/*					INIT					*/
+/* **************************************** */
+//////////////////////
+//	init_table.c	//
+//////////////////////
+void	init_table(t_table *table, char **av);
+
+/* **************************************** */
 /*					UTILS					*/
 /* **************************************** */
 //////////////////////
 //	utils.c			//
 //////////////////////
-void	ft_perror(t_table *table, char *msg, int code);
+int		ft_isdigit(int a);
+int		ft_atoi(const char *str);
+void	ft_perror(char *msg);
 
 #endif
