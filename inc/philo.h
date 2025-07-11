@@ -28,16 +28,28 @@ typedef struct s_table
 	long			time_to_sleep;
 	int				n_meals;
 	long			start_time;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	**forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	death_mutex;
-	t_philo			*philos;
+	t_philo			**philos;
 }	t_table;
+
+/* **************************************** */
+/*					LIB						*/
+/* **************************************** */
+int	ft_atoi(const char *str);
+int	ft_isdigit(int a);
+int	ft_strcmp(const char *s1, const char *s2);
 
 /* **************************************** */
 /*					INIT					*/
 /* **************************************** */
+//////////////////////
+//	init_parser.c	//
+//////////////////////
+int	check_args(int ac, char **av);
+
 //////////////////////
 //	init_table.c	//
 //////////////////////
@@ -47,10 +59,14 @@ void	init_table(t_table *table, char **av);
 /*					UTILS					*/
 /* **************************************** */
 //////////////////////
+//	utils_error.c	//
+//////////////////////
+void	ft_perror(char *msg);
+
+//////////////////////
 //	utils.c			//
 //////////////////////
 int		ft_isdigit(int a);
 int		ft_atoi(const char *str);
-void	ft_perror(char *msg);
 
 #endif
