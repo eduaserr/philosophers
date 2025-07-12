@@ -28,11 +28,11 @@ typedef struct s_table
 	long			time_to_sleep;
 	int				n_meals;
 	long			start_time;
-	pthread_mutex_t	**forks;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	death_mutex;
-	t_philo			**philos;
+	t_philo			*philos;
 }	t_table;
 
 /* **************************************** */
