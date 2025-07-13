@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/13 03:29:39 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/13 13:03:15 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,11 +194,11 @@ int	init_helpu(t_table *table)
 	i = 0;
 	while (i < table->n_ph)
 	{
-		init_philos(i, table, &table->philos[i]);
-		if (!table->philos)
-			return (ft_perror("init philo"), 1);
 		if (init_forks(i, table) == 1)
 			return (ft_perror("init fork"), 1);
+        init_philos(i, table, &table->philos[i]);
+		if (!table->philos)
+			return (ft_perror("init philo"), 1);
 		i++;
 	}
 	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
@@ -233,5 +233,3 @@ void	init_table(t_table *table, char **av)
 	ft_printtable(table);
 	ft_free_all(&table);
 }
-
-//faltan funciones para liberar philo y fork.
