@@ -43,12 +43,22 @@ int	ft_isdigit(int a);
 int	ft_strcmp(const char *s1, const char *s2);
 
 /* **************************************** */
+/*					FREE					*/
+/* **************************************** */
+//////////////////////
+//	free.c			//
+//////////////////////
+void	ft_free_ph(t_table *table);
+
+void	ft_free_all(t_table *table);
+
+/* **************************************** */
 /*					INIT					*/
 /* **************************************** */
 //////////////////////
 //	init_parser.c	//
 //////////////////////
-int	check_args(int ac, char **av);
+int		check_args(int ac, char **av);
 
 //////////////////////
 //	init_table.c	//
@@ -63,6 +73,7 @@ void	init_table(t_table *table, char **av);
 //////////////////////
 void	ft_perror(char *msg);
 
+void 	ft_printtable(t_table *table);
 //////////////////////
 //	utils.c			//
 //////////////////////

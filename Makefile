@@ -6,7 +6,7 @@
 #    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/13 15:47:17 by eduaserr          #+#    #+#              #
-#    Updated: 2025/07/13 03:39:29 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/07/13 23:10:52 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ RM		= rm -f
 LIB		= lib/
 INIT	= src/init/
 UTLS	= src/utils/
+FR		= src/free/
 
 SRC		= main.c
 SRCS	= $(LIB)ft_atoi.c $(LIB)ft_isdigit.c $(LIB)ft_strcmp.c\
+		$(FR)free.c\
 		$(INIT)init_parser.c $(INIT)init_table.c\
-		$(UTLS)utils_error.c $(UTLS)utils.c
+		$(UTLS)utils_error.c $(UTLS)utils_print.c $(UTLS)utils.c
 
 ### OBJS ###
 OBJS	= $(SRC:.c=.o) $(SRCS:.c=.o)
