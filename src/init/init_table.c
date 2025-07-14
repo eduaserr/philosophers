@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/13 23:20:51 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:17:34 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_philos(int id, t_table *table, t_philo *ph)
 	ph->l_fork = &table->forks[id];
 	ph->r_fork = &table->forks[(id + 1) % table->n_ph];
 	ph->thread = 0;
-	ph->table = (struct t_table *)table;
+	ph->table = table;
 }
 
 static int	init_forks(int id, t_table *table)

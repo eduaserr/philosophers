@@ -9,6 +9,8 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+typedef struct s_table t_table;
+
 typedef struct s_philo
 {
 	int				id;				//identificative number of the philo
@@ -17,7 +19,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	struct t_table	*table;
+	t_table			*table;
 }	t_philo;
 
 typedef struct s_table
