@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/15 19:23:47 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/16 21:13:37 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	print_msg(t_philo *ph, char *msg)
 {
 	if (pthread_mutex_lock(&ph->table->print_mutex) != 0)
 		return (1);
-	printf("[%lu]ms %i has taken %s\n",get_timestamp(ph->table), ph->id, msg);
+	if (ft_strcmp("l_fork", msg) == 0 || ft_strcmp("r_fork", msg) == 0)
+		printf("[%lu]ms %i has taken %s\n",get_timestamp(ph->table), ph->id, msg);
+	if (ft_strcmp("eating", msg) == 0)
+		printf("[%lu]ms %i is %s\n",get_timestamp(ph->table), ph->id, msg);
 	if (pthread_mutex_unlock(&ph->table->print_mutex) != 0)
 		return (1);
 	return (0);
@@ -67,23 +70,44 @@ int	eat(t_philo *ph)
 {
 	if (get_forks(ph) == 1)
 		return (1);
+	print_msg(ph, "eating");
 	return (0);
 }
 
-/* int	think()
-{}
+int	think(t_philo *ph)
+{
+	(void)ph;
+	return (0);
+}
 
-int	sleep()
-{} */
+int	ft_sleep(t_philo *ph)
+{
+	(void)ph;
+	return (0);
+}
 
 void	*ph_routine(void *arg)
 {
 	t_philo *ph;
 
 	ph = (t_philo *)arg;
+	// Caso especial: 1 filósofo
+	if (ph->table->n_ph == 1)
+	{
+		print_msg(ph, "has taken a fork");
+		usleep(ph->table->time_to_die * 1000);
+		return (NULL);
+	}
+	// Estrategia anti-deadlock: impares empiezan con delay
+	if (ph->id % 2 == 1)
+		usleep(ph->table->time_to_eat * 500);  // Medio tiempo de comer
 	while (1) // check_death , check_meals
 	{
 		if (eat(ph) == 1)
+			break ;
+		if (ft_sleep(ph))
+			break ;
+		if (think(ph))
 			break ;
 	}
 	return (NULL);
