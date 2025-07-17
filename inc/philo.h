@@ -78,10 +78,17 @@ int	think(t_philo *ph);
 int	ft_sleep(t_philo *ph);
 
 //////////////////////
+//	routines.c		//
+//////////////////////
+void	*ph_routine(void *arg);
+void	*dh_routine(void *arg);
+
+//////////////////////
 //	time.c			//
 //////////////////////
 long	get_time(void);
 long	get_timestamp(t_table *table);
+
 /* **************************************** */
 /*					UTILS					*/
 /* **************************************** */
