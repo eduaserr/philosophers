@@ -30,6 +30,7 @@ typedef struct s_table
 	long			time_to_sleep;
 	int				n_meals;
 	long			start_time;
+	int				someone_died;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	meal_mutex;
