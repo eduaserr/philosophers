@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 15:56:05 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:13:39 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void *dh_routine(void *arg)
 {
 	t_table *table = (t_table *)arg;
 	int i;
-		
+
 	while (1)
 	{
 		i = 0;
@@ -108,7 +108,6 @@ void *dh_routine(void *arg)
 				pthread_mutex_lock(&table->print_mutex);
 				printf("[%ld]ms %d died\n", get_timestamp(table), table->philos[i].id);
 				pthread_mutex_unlock(&table->print_mutex);
-				
 				return (NULL);
 			}
 			i++;
@@ -119,11 +118,14 @@ void *dh_routine(void *arg)
 			i = 0;
 			while (i < table->n_ph)
 			{
+				pthread_mutex_lock(&table->meal_mutex);
 				if (table->philos[i].meals < table->n_meals)  // Usa check_meals() o acceso directo
 				{
 					all_done = 0;
+					pthread_mutex_unlock(&table->meal_mutex);
 					break;
 				}
+				pthread_mutex_unlock(&table->meal_mutex);
 				i++;
 			}
 			if (all_done)
