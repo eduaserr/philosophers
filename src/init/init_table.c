@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/14 19:17:34 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:57:41 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	init_helpu(t_table *table)
 	{
 		if (init_forks(i, table) == 1)
 			return (ft_perror("init fork"), 1);
-        init_philos(i, table, &table->philos[i]);
+		init_philos(i, table, &table->philos[i]);
 		if (!table->philos)
 			return (ft_perror("init philo"), 1);
 		i++;

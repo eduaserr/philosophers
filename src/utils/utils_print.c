@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 23:08:03 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/13 23:10:30 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:27:49 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,19 @@ void ft_printtable(t_table *table)
 
 	ft_printforks(table);
 	ft_printfilo_all(table);
+}
+
+
+//msg_eat, msg_sleep, msg_think ...
+int	print_msg(t_philo *ph, char *msg)
+{
+	if (pthread_mutex_lock(&ph->table->print_mutex) != 0)
+		return (1);
+	if (ft_strcmp("l_fork", msg) == 0 || ft_strcmp("r_fork", msg) == 0)
+		printf("[%lu]ms %i has taken %s\n", get_timestamp(ph->table), ph->id, msg);
+	else
+		printf("[%lu]ms %i is %s\n", get_timestamp(ph->table), ph->id, msg);
+	if (pthread_mutex_unlock(&ph->table->print_mutex) != 0)
+		return (1);
+	return (0);
 }

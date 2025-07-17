@@ -52,7 +52,6 @@ int	ft_strcmp(const char *s1, const char *s2);
 //	free.c			//
 //////////////////////
 void	ft_free_ph(t_table *table);
-
 void	ft_free_all(t_table *table);
 
 /* **************************************** */
@@ -69,14 +68,30 @@ int		check_args(int ac, char **av);
 void	init_table(t_table *table, char **av);
 
 /* **************************************** */
+/*					SIMULATION				*/
+/* **************************************** */
+//////////////////////
+//	actions.c		//
+//////////////////////
+int	eat(t_philo *ph);
+int	think(t_philo *ph);
+int	ft_sleep(t_philo *ph);
+
+//////////////////////
+//	time.c			//
+//////////////////////
+long	get_time(void);
+long	get_timestamp(t_table *table);
+/* **************************************** */
 /*					UTILS					*/
 /* **************************************** */
 //////////////////////
 //	utils_error.c	//
 //////////////////////
 void	ft_perror(char *msg);
+void	ft_printtable(t_table *table);
 
-void 	ft_printtable(t_table *table);
+int	print_msg(t_philo *ph, char *msg);
 //////////////////////
 //	utils.c			//
 //////////////////////
