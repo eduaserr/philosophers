@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 19:00:41 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/18 12:39:49 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	simulation(t_table *table)
 	//crear threads
 	while (++i < table->n_ph)
 	{
+		printf("table->philo[%d]. primera comida = %ld (start_time)\n", i, table->start_time);
 		table->philos[i].last_meal = table->start_time;
 		if (pthread_create(&table->philos[i].thread, NULL, ph_routine, &table->philos[i]) != 0)
 			return (ft_perror("philosopher thread"), EXIT_FAILURE);
 	}
 	//create reaper
+	printf("reaper\n");
 	if (pthread_create(&reaper, NULL, dh_routine, table) != 0)
 		return (ft_perror("reaper thread"), EXIT_FAILURE);
 	//esperar reaper

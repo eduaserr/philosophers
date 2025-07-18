@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/18 02:30:44 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/18 12:41:14 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_death(t_philo *ph)
 	pthread_mutex_unlock(&ph->table->meal_mutex);
 
 	// Si pasó más tiempo del permitido, está muerto
-	if (current_time - last_meal > ph->table->time_to_die)
+	if ((current_time - last_meal) > ph->table->time_to_die)
 		return (1);  // Muerto
 
 	return (0);  // Vivo
@@ -113,9 +113,10 @@ void *dh_routine(void *arg)
 		{
 			if (check_death(&table->philos[i]))
 			{
+				printf("check_death, philo[%i] is dead", i);
 				someone_died(table);
 				pthread_mutex_lock(&table->print_mutex);
-				printf("%ld %d died\n", get_timestamp(table), table->philos[i].id + 1);
+				printf("%ld %d died\n", get_timestamp(table), table->philos[i].id);
 				pthread_mutex_unlock(&table->print_mutex);
 				return (NULL);
 			}
