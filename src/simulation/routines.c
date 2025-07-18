@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 19:50:46 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:30:44 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,17 @@ void	*ph_routine(void *arg)
 	pthread_mutex_unlock(&ph->table->meal_mutex);
 	while (!check_someone_died(ph->table)) // check_death , check_meals
 	{
-		if (eat(ph) || check_someone_died(ph->table))
+		if (eat(ph))
 			break ;
-		if (think(ph) || check_someone_died(ph->table))
+		if (check_someone_died(ph->table))
 			break ;
-		if (ft_sleep(ph) || check_someone_died(ph->table))
+		if (think(ph))
+			break ;
+		if (check_someone_died(ph->table))
+			break ;
+		if (ft_sleep(ph))
+			break ;
+		if (check_someone_died(ph->table))
 			break ;
 	}
 	return (NULL);
@@ -106,7 +112,13 @@ void *dh_routine(void *arg)
 		while (++i < table->n_ph)
 		{
 			if (check_death(&table->philos[i]))
-				return (someone_died(table), print_msg(table->philos, "died"), NULL);
+			{
+				someone_died(table);
+				pthread_mutex_lock(&table->print_mutex);
+				printf("%ld %d died\n", get_timestamp(table), table->philos[i].id + 1);
+				pthread_mutex_unlock(&table->print_mutex);
+				return (NULL);
+			}
 		}
 		if (table->n_meals != -1)  // Si hay límite de comidas
 		{

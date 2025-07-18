@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 18:28:36 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:32:02 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,17 @@ static int	get_forks(t_philo *ph)
 
 int	eat(t_philo *ph)
 {
+	if (check_someone_died(ph->table))
+        return (1);
 	if (get_forks(ph) == 1)
 		return (1);
+	if (check_someone_died(ph->table))
+    {
+        // Soltar tenedores si alguien murió
+        pthread_mutex_unlock(ph->l_fork);
+        pthread_mutex_unlock(ph->r_fork);
+        return (1);
+    }
 	if (print_msg(ph, "eating"))
 		return (1);
 	if (pthread_mutex_lock(&ph->table->meal_mutex))
@@ -70,6 +79,8 @@ int	think(t_philo *ph)
 int	ft_sleep(t_philo *ph)
 {
 	(void)ph;
+	if (check_someone_died(ph->table))
+        return (1);
 	if (print_msg(ph, "sleeping") != 0)
 		return (1);
 	usleep(ph->table->time_to_sleep * 1000);
