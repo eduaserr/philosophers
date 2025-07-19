@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/18 12:41:14 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:01:11 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	someone_died(t_table *table)
 
 int	check_someone_died(t_table *table)
 {
-	int	died;
+    int	died;
 
-	died = 0;
-	pthread_mutex_lock(&table->death_mutex);
-	died = table->someone_died;
-	pthread_mutex_unlock(&table->death_mutex);
-	return (died);
+    pthread_mutex_lock(&table->death_mutex);
+    died = table->someone_died;
+    pthread_mutex_unlock(&table->death_mutex);
+    
+    return (died);
 }
 
 int	check_death(t_philo *ph)
@@ -39,11 +39,8 @@ int	check_death(t_philo *ph)
 	current_time = get_time();
 	last_meal = ph->last_meal;
 	pthread_mutex_unlock(&ph->table->meal_mutex);
-
-	// Si pasó más tiempo del permitido, está muerto
 	if ((current_time - last_meal) > ph->table->time_to_die)
 		return (1);  // Muerto
-
 	return (0);  // Vivo
 }
 
@@ -51,16 +48,25 @@ int	check_meals(t_philo *ph)
 {
 	int	meals;
 
-	// Si n_meals es -1, no hay límite
 	if (ph->table->n_meals == -1)
-		return (0);  // Continuar comiendo
+		return (0);
 	pthread_mutex_lock(&ph->table->meal_mutex);
 	meals = ph->meals;
 	pthread_mutex_unlock(&ph->table->meal_mutex);
-	// Si ya comió suficiente, terminar
 	if (meals >= ph->table->n_meals)
-		return (1);  // Terminado
-	return (0);  // Continuar
+		return (1);
+	return (0);
+}
+
+int	one_ph(t_philo *ph)
+{
+	if (ph->table->n_ph == 1)
+	{
+		print_msg(ph, "has taken a fork");
+		usleep(ph->table->time_to_die * 1000);
+		return (1);
+	}
+	return (0);
 }
 
 void	*ph_routine(void *arg)
@@ -69,76 +75,89 @@ void	*ph_routine(void *arg)
 
 	ph = (t_philo *)arg;
 	// Caso especial: 1 filósofo
-	if (ph->table->n_ph == 1)
-	{
-		print_msg(ph, "has taken a fork");
-		usleep(ph->table->time_to_die * 1000);
+	printf("PHILO ROUTINE\n");
+	if (one_ph(ph))
 		return (NULL);
-	}
 	// Estrategia anti-deadlock: impares empiezan con delay
 	if (ph->id % 2 == 1)
-		usleep(ph->table->time_to_eat * 500);  // Medio tiempo de comer
+		usleep(ph->table->time_to_eat * 500);
 	pthread_mutex_lock(&ph->table->meal_mutex);
 	ph->last_meal = ph->table->start_time;
+	printf("ultima cmida del filo %ld = start_time table %ld\n", ph->last_meal, ph->table->start_time);
 	pthread_mutex_unlock(&ph->table->meal_mutex);
-	while (!check_someone_died(ph->table)) // check_death , check_meals
+	while (!check_someone_died(ph->table) && !check_meals(ph))
 	{
 		if (eat(ph))
 			break ;
-		if (check_someone_died(ph->table))
-			break ;
-		if (think(ph))
-			break ;
-		if (check_someone_died(ph->table))
-			break ;
-		if (ft_sleep(ph))
-			break ;
-		if (check_someone_died(ph->table))
-			break ;
+		if (check_someone_died(ph->table) || check_meals(ph))
+            break ;
+        if (think(ph))
+            break ;
+        if (check_someone_died(ph->table) || check_meals(ph))
+            break ;
+        if (ft_sleep(ph))
+            break ;
 	}
 	return (NULL);
 }
 
+static int	check_all_deaths(t_table *table)
+{
+    int	i;
+
+    i = -1;
+    while (++i < table->n_ph)
+    {
+        if (check_death(&table->philos[i]))
+        {
+            someone_died(table);
+            pthread_mutex_lock(&table->print_mutex);
+            printf("%ld %d died\n", get_timestamp(table), table->philos[i].id + 1);
+            pthread_mutex_unlock(&table->print_mutex);
+            return (1);
+        }
+    }
+    return (0);
+}
+
+static int	check_all_meals(t_table *table)
+{
+    int	i;
+    int	all_done;
+
+    if (table->n_meals == -1)
+        return (0);
+    all_done = 1;
+    i = -1;
+    while (++i < table->n_ph)
+    {
+        if (!check_meals(&table->philos[i]))
+        {
+            all_done = 0;
+            break ;
+        }
+    }
+    if (all_done)
+    {
+        someone_died(table);
+        return (1);
+    }
+    return (0);
+}
+
 void *dh_routine(void *arg)
 {
-	t_table	*table;
-	int		i;
-	int		all_done;
+    t_table	*table;
 
-	table = (t_table *)arg;
-	while (1)
-	{
-		i = -1;
-		while (++i < table->n_ph)
-		{
-			if (check_death(&table->philos[i]))
-			{
-				printf("check_death, philo[%i] is dead", i);
-				someone_died(table);
-				pthread_mutex_lock(&table->print_mutex);
-				printf("%ld %d died\n", get_timestamp(table), table->philos[i].id);
-				pthread_mutex_unlock(&table->print_mutex);
-				return (NULL);
-			}
-		}
-		if (table->n_meals != -1)  // Si hay límite de comidas
-		{
-			all_done = 1;
-			i = -1;
-			while (++i < table->n_ph)
-			{
-				pthread_mutex_lock(&table->meal_mutex);
-				if (table->philos[i].meals < table->n_meals)  // Usa check_meals() o acceso directo
-				{
-					all_done = 0;
-					pthread_mutex_unlock(&table->meal_mutex);
-					break ;
-				}
-				pthread_mutex_unlock(&table->meal_mutex);
-			}
-			if (all_done)
-				return (someone_died(table), NULL);
-		}
-		usleep(1000);  // Verificar cada 1ms
-	}
+    table = (t_table *)arg;
+    while (!check_someone_died(table))
+    {
+        if (check_all_deaths(table))
+            return (NULL);
+        if (check_all_meals(table))
+            return (NULL);
+            
+        usleep(500);
+    }
+    return (NULL);
 }

@@ -83,8 +83,9 @@ int	ft_sleep(t_philo *ph);
 void	*ph_routine(void *arg);
 void	*dh_routine(void *arg);
 
+int		check_death(t_philo *ph);
 void	someone_died(t_table *table);
-int	check_someone_died(t_table *table);
+int		check_someone_died(t_table *table);
 
 //////////////////////
 //	time.c			//
