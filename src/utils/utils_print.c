@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 23:08:03 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 18:34:07 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:44:48 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int	print_msg(t_philo *ph, char *msg)
 	if (pthread_mutex_lock(&ph->table->print_mutex) != 0)
 		return (1);
 	if (ft_strcmp("l_fork", msg) == 0 || ft_strcmp("r_fork", msg) == 0)
-		printf("[%lu]ms %i has taken %s\n",
-			get_timestamp(ph->table), ph->id, msg);
+		printf("%lu %i has taken a fork\n",
+			get_timestamp(ph->table), ph->id);
 	else if ((ft_strcmp("eating", msg) == 0
 		|| ft_strcmp("sleeping", msg) == 0) || ft_strcmp("thinking", msg) == 0)
-		printf("[%lu]ms %i is %s\n", get_timestamp(ph->table), ph->id, msg);
+		printf("%lu %i is %s\n", get_timestamp(ph->table), ph->id, msg);
 	else
-		printf("[%lu]ms %i %s\n", get_timestamp(ph->table), ph->id, msg);
+		printf("%lu %i %s\n", get_timestamp(ph->table), ph->id, msg);
 	if (pthread_mutex_unlock(&ph->table->print_mutex) != 0)
 		return (1);
 	return (0);
