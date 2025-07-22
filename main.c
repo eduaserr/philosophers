@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 00:20:44 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:55:06 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	simulation(t_table *table)
 	//crear threads
 	while (++i < table->n_ph)
 	{
+		pthread_mutex_lock(&table->meal_mutex);
+		table->philos[i].last_meal = table->start_time;
+		pthread_mutex_unlock(&table->meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, ph_routine, &table->philos[i]) != 0)
 			return (ft_perror("philosopher thread"), EXIT_FAILURE);
 	}
