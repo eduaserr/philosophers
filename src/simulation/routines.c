@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 22:43:05 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:30:17 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,6 @@ void	*ph_routine(void *arg)
 	// Estrategia anti-deadlock: impares empiezan con delay
 	if (ph->id % 2 == 1)
 		usleep(ph->table->time_to_eat * 500);
-	pthread_mutex_lock(&ph->table->meal_mutex);
-	ph->last_meal = ph->table->start_time;
-	pthread_mutex_unlock(&ph->table->meal_mutex);
 	while (!check_someone_died(ph->table) && !check_meals(ph))
 	{
 		if (eat(ph))
@@ -151,7 +148,7 @@ void	*dh_routine(void *arg)
 		if (check_all_meals(table))
 			return (NULL);
 			
-		usleep(1000);
+		usleep(250);
 	}
 	return (NULL);
 }

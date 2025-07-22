@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 22:49:14 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/22 22:50:39 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	eat(t_philo *ph)
 		return (1);
 	}
 	ft_lastmeal_mutex(ph);
-	//printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
+	printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
 	pthread_mutex_unlock(ph->l_fork);
 	pthread_mutex_unlock(ph->r_fork);
 	if (check_someone_died(ph->table))

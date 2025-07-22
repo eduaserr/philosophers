@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/17 15:57:41 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:12:23 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 18:45:07 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:20:44 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,10 @@ int	simulation(t_table *table)
 	int			i;
 
 	i = -1;
-	(void)i;
 	table->start_time = get_time();
 	//crear threads
 	while (++i < table->n_ph)
 	{
-		//printf("table->philo[%d]. primera comida = %ld (start_time)\n", i, table->start_time);
-		pthread_mutex_lock(&table->meal_mutex);
-		table->philos[i].last_meal = table->start_time;
-		pthread_mutex_unlock(&table->meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, ph_routine, &table->philos[i]) != 0)
 			return (ft_perror("philosopher thread"), EXIT_FAILURE);
 	}
@@ -57,46 +52,3 @@ int	main(int ac, char **av)
 	printf("philo :)\n");
 	return (0);
 }
-
-
-/*
-	 mutex lock
-	COGER FORKS
-	 mutex unlock
-
-	mutex lock
-	- PRINTF fork obtenido (left or right)
-	mutex unlock
-
-	mutex lock
-	- comer
-	mutex unlock
-
-	mutex lock
-	- PRINTF comer
-	mutex unlock
-
-	 mutex lock
-	soltar forks
-	 mutex unlock
-
-	mutex lock
-	- PRINTF fork soltado (left or right)
-	mutex unlock
-
-	mutex lock
-	- pensar
-	mutex unlock
-
-	mutex lock
-	- PRINTF pensar
-	mutex unlock
-
-	mutex lock
-	- dormir
-	mutex unlock
-
-	mutex lock
-	- PRINTF dormir
-	mutex unlock
-*/
