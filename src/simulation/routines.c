@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 00:30:17 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:41:30 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ static int	check_all_deaths(t_table *table)
 		{
 			someone_died(table);
 			pthread_mutex_lock(&table->print_mutex);
-			printf("%ld %d died\n", get_timestamp(table), table->philos[i].id + 1);
+			printf("%ld %d died\n", get_timestamp(table),
+				table->philos[i].id + 1);
 			pthread_mutex_unlock(&table->print_mutex);
 			return (1);
 		}
