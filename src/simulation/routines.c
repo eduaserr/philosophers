@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 18:42:28 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/22 22:43:05 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,9 @@ void	*ph_routine(void *arg)
 	{
 		if (eat(ph))
 			break ;
-		if (check_someone_died(ph->table) || check_meals(ph))
-			break ;
-		//printf("PIENSA\n");
-		if (think(ph))
-			break ;
-		if (check_someone_died(ph->table) || check_meals(ph))
-			break ;
-		//printf("DUERME\n");
 		if (ft_sleep(ph))
+			break ;
+		if (think(ph))
 			break ;
 	}
 	return (NULL);
@@ -112,7 +106,7 @@ static int	check_all_deaths(t_table *table)
 		{
 			someone_died(table);
 			pthread_mutex_lock(&table->print_mutex);
-			printf("%ld %d died\n", get_timestamp(table), table->philos[i].id);
+			printf("%ld %d died\n", get_timestamp(table), table->philos[i].id + 1);
 			pthread_mutex_unlock(&table->print_mutex);
 			return (1);
 		}

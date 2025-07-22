@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 18:58:08 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/22 22:49:14 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,26 @@ int	ph_sleep(t_philo *ph, long time)
 	{
 		if (check_someone_died(ph->table))
 			return (1);
-		usleep(100);
+		usleep(500);
 	}
 	return (0);
 }
 
 int	eat(t_philo *ph)
 {
-	if (check_someone_died(ph->table))
-		return (1);
 	if (get_forks(ph) == 1)
 		return (1);
-	if (check_someone_died(ph->table))
+	print_msg(ph, "eating");
+	if (ph_sleep(ph, ph->table->time_to_eat))
 	{
 		pthread_mutex_unlock(ph->l_fork);
 		pthread_mutex_unlock(ph->r_fork);
 		return (1);
 	}
-	print_msg(ph, "eating");
 	ft_lastmeal_mutex(ph);
 	//printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
 	pthread_mutex_unlock(ph->l_fork);
 	pthread_mutex_unlock(ph->r_fork);
-	if (ph_sleep(ph, ph->table->time_to_eat))
-		return (1);
 	if (check_someone_died(ph->table))
 		return (1);
 	return (0);
@@ -112,7 +108,7 @@ int	ft_sleep(t_philo *ph)
 	{
 		if (check_someone_died(ph->table))
 			return (1);
-		usleep(100);
+		usleep(500);
 	}
 	return (0);
 }
