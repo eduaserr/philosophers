@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 23:08:03 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 00:42:00 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 02:01:13 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void ft_printtable(t_table *table)
 //msg_eat, msg_sleep, msg_think ...
 int	print_msg(t_philo *ph, char *msg)
 {
+	if (check_someone_died(ph->table))
+        return (1);
 	if (pthread_mutex_lock(&ph->table->print_mutex) != 0)
 		return (1);
 	if (ft_strcmp("l_fork", msg) == 0 || ft_strcmp("r_fork", msg) == 0)

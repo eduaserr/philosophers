@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/22 22:50:39 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 02:22:22 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 static int	get_forks(t_philo *ph)
 {
+	if (check_someone_died(ph->table))
+        return (1);
 	if (ph->id % 2 == 0)
 	{
 		if (pthread_mutex_lock(ph->l_fork) != 0)
 			return (1);
 		print_msg(ph, "l_fork");
+		if (check_someone_died(ph->table))
+		{
+			pthread_mutex_unlock(ph->l_fork);
+			return (1);
+		}
 		if (pthread_mutex_lock(ph->r_fork) != 0)
 		{
 			pthread_mutex_unlock(ph->l_fork);
@@ -31,6 +38,11 @@ static int	get_forks(t_philo *ph)
 		if (pthread_mutex_lock(ph->r_fork) != 0)
 			return (1);
 		print_msg(ph, "r_fork");
+		if (check_someone_died(ph->table))
+		{
+			pthread_mutex_unlock(ph->r_fork);
+			return (1);
+		}
 		if (pthread_mutex_lock(ph->l_fork) != 0)
 		{
 			pthread_mutex_unlock(ph->r_fork);
@@ -68,17 +80,19 @@ int	ph_sleep(t_philo *ph, long time)
 
 int	eat(t_philo *ph)
 {
+	if (check_someone_died(ph->table))
+		return (1);
 	if (get_forks(ph) == 1)
 		return (1);
 	print_msg(ph, "eating");
+	ft_lastmeal_mutex(ph);
+	//printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
 	if (ph_sleep(ph, ph->table->time_to_eat))
 	{
 		pthread_mutex_unlock(ph->l_fork);
 		pthread_mutex_unlock(ph->r_fork);
 		return (1);
 	}
-	ft_lastmeal_mutex(ph);
-	printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
 	pthread_mutex_unlock(ph->l_fork);
 	pthread_mutex_unlock(ph->r_fork);
 	if (check_someone_died(ph->table))
