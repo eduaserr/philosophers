@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 00:12:23 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:20:21 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	init_helpu(t_table *table)
 
 void	init_table(t_table *table, char **av)
 {
+	memset(table, 0, sizeof(t_table));
 	table->n_ph = ft_atoi(av[1]);
 	table->time_to_die = ft_atoi(av[2]);
 	table->time_to_eat = ft_atoi(av[3]);

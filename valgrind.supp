@@ -1,0 +1,35 @@
+{
+   dwarf_warnings_9b
+   Helgrind:Misc
+   fun:evaluate_Dwarf3_Expr
+   obj:*
+}
+
+{
+   dwarf_warnings_a3
+   Helgrind:Misc
+   fun:evaluate_Dwarf3_Expr
+   obj:*
+}
+
+# Suprimir warnings de threading internos de pthread
+{
+   pthread_create_issues
+   Helgrind:Race
+   fun:pthread_create@@GLIBC_*
+}
+
+{
+   pthread_mutex_issues
+   Helgrind:Race
+   fun:pthread_mutex_*
+   obj:/lib/x86_64-linux-gnu/libpthread-*
+}
+
+# Suprimir warnings del sistema glibc
+{
+   glibc_malloc_issues
+   Memcheck:Leak
+   fun:malloc
+   fun:_dl_*
+}

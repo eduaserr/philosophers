@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 02:22:22 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:14:20 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	get_forks(t_philo *ph)
 {
 	if (check_someone_died(ph->table))
-        return (1);
+		return (1);
 	if (ph->id % 2 == 0)
 	{
 		if (pthread_mutex_lock(ph->l_fork) != 0)
@@ -73,7 +73,7 @@ int	ph_sleep(t_philo *ph, long time)
 	{
 		if (check_someone_died(ph->table))
 			return (1);
-		usleep(500);
+		usleep(100);
 	}
 	return (0);
 }
@@ -106,6 +106,7 @@ int	think(t_philo *ph)
 		return (1);
 	if (print_msg(ph, "thinking") != 0)
 		return (1);
+	usleep(50);
 	return (0);
 }
 
@@ -122,7 +123,7 @@ int	ft_sleep(t_philo *ph)
 	{
 		if (check_someone_died(ph->table))
 			return (1);
-		usleep(500);
+		usleep(100);
 	}
 	return (0);
 }
