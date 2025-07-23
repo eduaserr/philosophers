@@ -84,9 +84,13 @@ int	ft_sleep(t_philo *ph);
 void	*ph_routine(void *arg);
 void	*dh_routine(void *arg);
 
+//////////////////////
+//	routine_utils.c	//
+//////////////////////
 int		check_death(t_philo *ph);
 void	someone_died(t_table *table);
 int		check_someone_died(t_table *table);
+int		check_meals(t_philo *ph);
 
 //////////////////////
 //	time.c			//
@@ -101,13 +105,16 @@ long	get_timestamp(t_table *table);
 //	utils_error.c	//
 //////////////////////
 void	ft_perror(char *msg);
-void	ft_printtable(t_table *table);
 
+//////////////////////
+//	utils_print.c	//
+//////////////////////
 int	print_msg(t_philo *ph, char *msg);
+
 //////////////////////
 //	utils.c			//
 //////////////////////
-int		ft_isdigit(int a);
-int		ft_atoi(const char *str);
+int	ft_lastmeal_mutex(t_philo *ph);
+int	ph_sleep(t_philo *ph, long time);
 
 #endif

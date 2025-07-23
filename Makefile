@@ -6,7 +6,7 @@
 #    By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/13 15:47:17 by eduaserr          #+#    #+#              #
-#    Updated: 2025/07/17 19:00:20 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/07/23 17:37:02 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC		= main.c
 SRCS	= $(LIB)ft_atoi.c $(LIB)ft_isdigit.c $(LIB)ft_strcmp.c\
 		$(FR)free.c\
 		$(INIT)init_parser.c $(INIT)init_table.c\
-		$(SIM)actions.c $(SIM)routines.c $(SIM)time.c\
+		$(SIM)actions.c $(SIM)routines.c $(SIM)routine_utils.c $(SIM)time.c\
 		$(UTLS)utils_error.c $(UTLS)utils_print.c $(UTLS)utils.c
 
 ### OBJS ###

@@ -6,11 +6,30 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 15:14:20 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:38:23 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
+
+static int	odd_fork(t_philo *ph)
+{
+	if (pthread_mutex_lock(ph->r_fork) != 0)
+		return (1);
+	print_msg(ph, "r_fork");
+	if (check_someone_died(ph->table))
+	{
+		pthread_mutex_unlock(ph->r_fork);
+		return (1);
+	}
+	if (pthread_mutex_lock(ph->l_fork) != 0)
+	{
+		pthread_mutex_unlock(ph->r_fork);
+		return (1);
+	}
+	print_msg(ph, "l_fork");
+	return (0);
+}
 
 static int	get_forks(t_philo *ph)
 {
@@ -34,47 +53,7 @@ static int	get_forks(t_philo *ph)
 		print_msg(ph, "r_fork");
 	}
 	else
-	{
-		if (pthread_mutex_lock(ph->r_fork) != 0)
-			return (1);
-		print_msg(ph, "r_fork");
-		if (check_someone_died(ph->table))
-		{
-			pthread_mutex_unlock(ph->r_fork);
-			return (1);
-		}
-		if (pthread_mutex_lock(ph->l_fork) != 0)
-		{
-			pthread_mutex_unlock(ph->r_fork);
-			return (1);
-		}
-		print_msg(ph, "l_fork");
-	}
-	return (0);
-}
-
-static int	ft_lastmeal_mutex(t_philo *ph)
-{
-	if (pthread_mutex_lock(&ph->table->meal_mutex) != 0)
-		return (1);
-	ph->last_meal = get_time();
-	ph->meals++;
-	if (pthread_mutex_unlock(&ph->table->meal_mutex) != 0)
-		return (1);
-	return (0);
-}
-
-int	ph_sleep(t_philo *ph, long time)
-{
-	long	start;
-
-	start = get_time();
-	while ((get_time() - start) < time)
-	{
-		if (check_someone_died(ph->table))
-			return (1);
-		usleep(100);
-	}
+		return (odd_fork(ph));
 	return (0);
 }
 
@@ -86,7 +65,6 @@ int	eat(t_philo *ph)
 		return (1);
 	print_msg(ph, "eating");
 	ft_lastmeal_mutex(ph);
-	//printf("ultima comida = %ld, nº comida %d\n", ph->last_meal, ph->meals);
 	if (ph_sleep(ph, ph->table->time_to_eat))
 	{
 		pthread_mutex_unlock(ph->l_fork);

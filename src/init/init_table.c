@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 01:18:24 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 15:20:21 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:41:09 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	init_table(t_table *table, char **av)
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->n_ph);
 	if (!table->philos)
 		return (ft_perror("philo struct"));
-	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * table->n_ph);
+	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* table->n_ph);
 	if (!table->forks)
 		return (ft_free_ph(table), ft_perror("forks struct"));
 	if (init_helpu(table) == 1)

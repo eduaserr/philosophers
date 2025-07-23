@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 23:01:19 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/13 23:17:53 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:43:47 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
-static void ft_free_forks(t_table *table)
+static void	ft_free_forks(t_table *table)
 {
-	int i;
+	int	i;
 
 	if (table->forks)
 	{
