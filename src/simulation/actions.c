@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/24 18:46:32 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:33:35 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,12 @@ int	eat(t_philo *ph)
 
 int	think(t_philo *ph)
 {
-	long	current_time;
-	long	time_since_meal;
-	long	think_time;
-
 	if (check_someone_died(ph->table))
 		return (1);
-	current_time = get_time();
-	pthread_mutex_lock(&ph->table->meal_mutex);
-	time_since_meal = current_time - ph->last_meal;
-	pthread_mutex_unlock(&ph->table->meal_mutex);
-	think_time = (ph->table->time_to_die - time_since_meal - ph->table->time_to_eat) / 2;
-	if (think_time < 1)
-		think_time = 1;
-	if (think_time > 50)
-		think_time = 50;
-	print_msg(ph, "is thinking");
-	return (usleep(think_time));
+	if (print_msg(ph, "thinking") != 0)
+		return (1);
+	usleep(50);
+	return (0);
 }
 
 int	ft_sleep(t_philo *ph)
