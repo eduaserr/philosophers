@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/24 20:33:35 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/24 21:10:19 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	think(t_philo *ph)
 		return (1);
 	if (print_msg(ph, "thinking") != 0)
 		return (1);
-	usleep(50);
+	usleep(10);
 	return (0);
 }
 
