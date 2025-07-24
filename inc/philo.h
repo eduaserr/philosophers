@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/24 20:53:49 by eduaserr          #+#    #+#             */
+/*   Updated: 2025/07/24 20:54:15 by eduaserr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-# define E_MSG "\x1b[31m%s\x1B[37m%s\n", "Error : "
+# define E_MSG "\x1b[31mError : \x1B[37m%s\n"
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <string.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
+# include <string.h>
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
-	int				id;				//identificative number of the philo
+	int				id;
 	int				meals;
 	long			last_meal;
 	pthread_t		thread;
@@ -25,7 +37,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				n_ph;			//how many philos
+	int				n_ph;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -42,9 +54,9 @@ typedef struct s_table
 /* **************************************** */
 /*					LIB						*/
 /* **************************************** */
-int	ft_atoi(const char *str);
-int	ft_isdigit(int a);
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int a);
+int		ft_strcmp(const char *s1, const char *s2);
 
 /* **************************************** */
 /*					FREE					*/
@@ -74,9 +86,9 @@ void	init_table(t_table *table, char **av);
 //////////////////////
 //	actions.c		//
 //////////////////////
-int	eat(t_philo *ph);
-int	think(t_philo *ph);
-int	ft_sleep(t_philo *ph);
+int		eat(t_philo *ph);
+int		think(t_philo *ph);
+int		ft_sleep(t_philo *ph);
 
 //////////////////////
 //	routines.c		//
@@ -109,12 +121,12 @@ void	ft_perror(char *msg);
 //////////////////////
 //	utils_print.c	//
 //////////////////////
-int	print_msg(t_philo *ph, char *msg);
+int		print_msg(t_philo *ph, char *msg);
 
 //////////////////////
 //	utils.c			//
 //////////////////////
-int	ft_lastmeal_mutex(t_philo *ph);
-int	ph_sleep(t_philo *ph, long time);
+int		ft_lastmeal_mutex(t_philo *ph);
+int		ph_sleep(t_philo *ph, long time);
 
 #endif
