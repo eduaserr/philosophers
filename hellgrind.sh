@@ -360,3 +360,4 @@ echo -e "\n${GREEN}✅ Testing completed!${NC}"
 #./philo 8 800 150 150
 #./philo 5 800 200 200 3
 #./philo 8 800 150 150
+#./philo 3 650 200 100

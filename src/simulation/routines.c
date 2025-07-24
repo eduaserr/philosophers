@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:45:46 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/23 17:41:53 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:59:47 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*ph_routine(void *arg)
 	if (one_ph(ph))
 		return (NULL);
 	if (ph->id % 2 == 1)
-		usleep(ph->table->time_to_eat / 20);
+		usleep(100);
 	pthread_mutex_lock(&ph->table->meal_mutex);
 	ph->last_meal = get_time();
 	pthread_mutex_unlock(&ph->table->meal_mutex);
