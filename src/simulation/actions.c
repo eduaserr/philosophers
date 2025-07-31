@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/31 14:37:24 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:58:15 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	think(t_philo *ph)
 		return (1);
 	if (ph->table->time_to_eat > ph->table->time_to_sleep)
 		ph_sleep(ph, time);
+	else
+		ph_sleep(ph, 1);
 	return (0);
 }
 
