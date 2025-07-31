@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/31 14:58:15 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:02:44 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	eat(t_philo *ph)
 
 int	think(t_philo *ph)
 {
-	int time;
+	int	time;
 
 	time = (ph->table->time_to_eat - ph->table->time_to_sleep + 1);
 	if (check_someone_died(ph->table))
