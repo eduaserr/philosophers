@@ -6,12 +6,26 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:24:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/24 21:10:19 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:23:07 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
 
+// Tiempo restante antes de morir
+long	time_left_to_die(t_philo *ph)
+{
+	long	now;
+	long	last_meal;
+
+	pthread_mutex_lock(&ph->table->meal_mutex);
+	last_meal = ph->last_meal;
+	pthread_mutex_unlock(&ph->table->meal_mutex);
+	now = get_time();
+	return (ph->table->time_to_die - (now - last_meal));
+}
+
+//
 static int	odd_fork(t_philo *ph)
 {
 	if (pthread_mutex_lock(ph->r_fork) != 0)
@@ -84,7 +98,7 @@ int	think(t_philo *ph)
 		return (1);
 	if (print_msg(ph, "thinking") != 0)
 		return (1);
-	usleep(10);
+	usleep(((ph->table->time_to_eat + ph->table->time_to_sleep) / 2) * 1000);
 	return (0);
 }
 
