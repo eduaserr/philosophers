@@ -1,5 +1,3 @@
-# philosophers
-# philosophers
 <div>
     <img align="left" alt="philosophers" src="https://github.com/eduaserr/42-project-badges/blob/main/badges/philosopherse.png" width="75px"><img align="right" alt="philosophers" src="https://github.com/eduaserr/42-project-badges/blob/main/badges/philosophersn.png" width="75px">
     <h1 align="center"> ~PHILOSOPHERS~ <br><img alt="success 100/100" src="https://img.shields.io/badge/100%2F100-green?style=plastic&logoColor=green&label=success"></h1>
@@ -11,9 +9,6 @@
 philosophers/
 ├── Makefile
 ├── main.c
-├── bash.sh
-├── hellgrind.sh
-├── valgrind.supp
 ├── inc/
 │   └── philo.h
 ├── lib/
@@ -111,7 +106,7 @@ typedef struct s_table {
 
 ```bash
 make
-./philo [num_philos] [time_to_die] [time_to_eat] [time_to_sleep] [num_meals]
+./philo [num_philos] [time_to_die] [time_to_eat] [time_to_sleep] <[num_meals]>
 ```
 
 **Example:**
@@ -150,8 +145,8 @@ if (ph->id % 2 == 0) {
 Includes scripts for testing and debugging:
 - `bash.sh` - Automated testing scripts
 - `hellgrind.sh` - Race condition detection with Helgrind
-- `valgrind.supp` - False positive suppression in Valgrind
 
+Don't treat it as the ultimate test.
 ### STATUS MESSAGES
 
 - `[timestamp] [id] has taken a fork`
